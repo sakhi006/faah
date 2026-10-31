@@ -1,0 +1,42 @@
+from collections import Counter
+
+events = [
+    ("keyboard", "key_event"),
+    ("keyboard", "key_event"),
+    ("keyboard", "key_event"),
+    ("keyboard", "key_event"),
+    ("file", "write"),
+    ("file", "write"),
+    ("network", "outbound_connection"),
+    ("keyboard", "key_event"),
+    ("keyboard", "key_event"),
+    ("file", "write"),
+    ("network", "outbound_connection"),
+]
+def analyze_behavior(events):
+    counts = Counter(category for category, action in events)
+ print("=== Endpoint Behavioral Analysis ===")
+    print(f"Keyboard events : {counts['keyboard']}")
+    print(f"File writes     : {counts['file']}")
+    print(f"Network events  : {counts['network']}")
+   suspicious = []
+ 
+    if counts["keyboard"] >= 5:
+        suspicious.append("High-volume keyboard event collection")
+
+ 
+    if counts["keyboard"] >= 5 and counts["file"] >= 2:
+        suspicious.append("Keyboard collection combined with file activity")
+
+   
+    if counts["keyboard"] >= 5 and counts["network"] >= 1:
+        suspicious.append("Keyboard collection combined with network activity")
+
+    print("\n=== Detection Results ===")
+
+    if suspicious:
+        for item in suspicious:
+            print("[ALERT]", item)
+    else:
+        print("[OK] No suspicious behavior detected")
+analyze_behavior(events)
