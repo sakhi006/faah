@@ -15,11 +15,11 @@ events = [
 ]
 def analyze_behavior(events):
     counts = Counter(category for category, action in events)
- print("=== Endpoint Behavioral Analysis ===")
+    print("=== Endpoint Behavioral Analysis ===")
     print(f"Keyboard events : {counts['keyboard']}")
     print(f"File writes     : {counts['file']}")
     print(f"Network events  : {counts['network']}")
-   suspicious = []
+    suspicious = []
  
     if counts["keyboard"] >= 5:
         suspicious.append("High-volume keyboard event collection")
